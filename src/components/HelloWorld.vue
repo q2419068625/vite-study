@@ -1,19 +1,50 @@
 <template>
-  <h1>{{ msg }}</h1>
-  <button @click="count++">count is: {{ count }}</button>
-  <p>Edit <code>components/HelloWorld.vue</code> to test hot module replacement.</p>
+  <p>{{counter}}</p>
+  <p>{{douleCounter}}</p>
+  <p ref="desc"></p>
 </template>
 
 <script>
+import { computed, reactive,onMounted, onUnmounted, ref, toRefs, watch } from 'vue'
 export default {
   name: 'HelloWorld',
   props: {
     msg: String
   },
-  data() {
-    return {
-      count: 0
-    }
-  }
+ setup(){
+    //counter
+    const {counter,douleCounter} = useCounter()
+    const msg = ref('some message')
+
+    //使用元素引用
+    const desc = ref(null)
+
+    //侦听器
+    watch(counter,(val,oldVal)=>{
+      const p = desc.value
+      p.textContent = `counter change from ${oldVal} to ${val}`
+    })  
+
+   return {counter,douleCounter,msg,desc}
+ }
 }
+
+function useCounter(){
+  const data = reactive({
+     counter:1,
+     douleCounter:computed(()=>data.counter*2)
+   })
+
+    let timer
+    onMounted(() => {
+      timer = setInterval(()=>{
+        data.counter++;
+      },1000)
+    })
+    onUnmounted(()=>{
+      clearInterval(timer)
+    })
+    return toRefs(data)
+}
+
 </script>
