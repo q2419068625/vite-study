@@ -3,12 +3,14 @@
   <p>{{douleCounter}}</p>
   <p ref="desc"></p>
   <!-- ModelOpen -->
-  <ModelOpen></ModelOpen>
+  <ModelButton></ModelButton>
+  <Emits @click="onClick"></Emits>
 </template>
 
 <script>
 import { computed, reactive,onMounted, onUnmounted, ref, toRefs, watch } from 'vue'
-import ModelOpen from './ModelButton.vue'
+import ModelButton from './ModelButton.vue'
+import Emits from './Emits.vue'
 export default {
   name: 'HelloWorld',
   props: {
@@ -27,12 +29,19 @@ export default {
       const p = desc.value
       p.textContent = `counter change from ${oldVal} to ${val}`
     })  
-
+   
    return {counter,douleCounter,msg,desc}
  },
+ methods:{
+    onClick(){
+      console.log('click me');
+    }
+ },
   components:{
-    ModelOpen
+    ModelButton,
+    Emits
   }
+
 }
 
 function useCounter(){
@@ -41,15 +50,15 @@ function useCounter(){
      douleCounter:computed(()=>data.counter*2)
    })
 
-    let timer
-    onMounted(() => {
-      timer = setInterval(()=>{
-        data.counter++;
-      },1000)
-    })
-    onUnmounted(()=>{
-      clearInterval(timer)
-    })
+    // let timer
+    // onMounted(() => {
+    //   timer = setInterval(()=>{
+    //     data.counter++;
+    //   },1000)
+    // })
+    // onUnmounted(()=>{
+    //   clearInterval(timer)
+    // })
     return toRefs(data)
 }
 
