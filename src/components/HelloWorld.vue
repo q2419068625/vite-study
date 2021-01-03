@@ -2,10 +2,13 @@
   <p>{{counter}}</p>
   <p>{{douleCounter}}</p>
   <p ref="desc"></p>
+  <!-- ModelOpen -->
+  <ModelOpen></ModelOpen>
 </template>
 
 <script>
 import { computed, reactive,onMounted, onUnmounted, ref, toRefs, watch } from 'vue'
+import ModelOpen from './ModelButton.vue'
 export default {
   name: 'HelloWorld',
   props: {
@@ -26,7 +29,10 @@ export default {
     })  
 
    return {counter,douleCounter,msg,desc}
- }
+ },
+  components:{
+    ModelOpen
+  }
 }
 
 function useCounter(){
