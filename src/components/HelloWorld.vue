@@ -5,6 +5,7 @@
   <!-- ModelOpen -->
   <ModelButton></ModelButton>
   <Emits @click="onClick"></Emits>
+  <comp></comp>
 </template>
 
 <script>

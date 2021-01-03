@@ -30,13 +30,11 @@
 vue3中可以不止一个根组件
 
 ```html
-​```html
 <template>
   <li>Hello</li>
   <li>Vue</li>
   <li>Devs!</li>
 </template>
-​```
 ```
 
 # Emits
@@ -54,5 +52,21 @@ export default {
     emits:['click']
 }
 </script>
+```
+
+# createRenderer
+
+Vue3.0中支持 *自定义渲染器* (Renderer):这个 API 可以用来创建自定义的渲染器, （在以往像weex和mpvue，需要通过fork源码的方式进行扩展）
+
+### Global API 改为应用程序实例调用
+
+vue3中使用createApp返回app实例，由它暴露一系列全局api
+
+```html
+import { createApp } from 'vue'
+const app = createApp({})
+	.component('comp', {render(){ return h('div','i am comp') }}
+  	.mount('#app')
+
 ```
 
