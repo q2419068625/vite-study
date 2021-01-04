@@ -6,16 +6,26 @@
   <ModelButton></ModelButton>
   <Emits @click="onClick"></Emits>
   <comp></comp>
+  <!-- v-model使用 -->
+  <VmodelTest v-model:counter="counter"></VmodelTest>
+  <!-- 等效于 -->
+  <!-- <VmodelTest :counter="counter" @update:counter="counter=$event"></VmodelTest> -->
 </template>
 
 <script>
 import { computed, reactive,onMounted, onUnmounted, ref, toRefs, watch } from 'vue'
 import ModelButton from './ModelButton.vue'
+import VmodelTest from './VmodelTest.vue'
 import Emits from './Emits.vue'
 export default {
   name: 'HelloWorld',
   props: {
     msg: String
+  },
+  data(){
+    return{
+      counter:1
+    }
   },
  setup(){
     //counter
@@ -40,7 +50,8 @@ export default {
  },
   components:{
     ModelButton,
-    Emits
+    Emits,
+    VmodelTest
   }
 
 }

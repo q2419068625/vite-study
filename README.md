@@ -70,3 +70,25 @@ const app = createApp({})
 
 ```
 
+# model 选项和v-bind的sync修饰符被移除，统一为v-model参数形式
+
+vue2中.sync和v-model功能有重叠，容易混淆，vue3做了统一。
+
+```html
+<div id="app">
+  <h3>{{data}}</h3>    
+  <comp v-model="data"></comp>
+</div>
+```
+
+```js
+app.component('comp', {
+  template: `
+    <div @click="$emit('update:modelValue', 'new value')">
+    	i am comp, {{modelValue}}
+    </div>
+	`,
+  props: ['modelValue'],
+})
+```
+
