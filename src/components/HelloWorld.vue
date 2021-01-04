@@ -16,6 +16,8 @@
     <template v-slot:counter>counter.....</template>
   </RenderTest>
   <Functional level="3">这是一个动态的H元素</Functional>
+  <!-- 异步组件 -->
+  <AsyncComp></AsyncComp>
 </template>
 
 <script>
@@ -28,6 +30,7 @@ import {
   toRefs,
   watch,
   h,
+  defineAsyncComponent,
 } from "vue";
 import ModelButton from "./ModelButton.vue";
 import VmodelTest from "./VmodelTest.vue";
@@ -90,7 +93,8 @@ export default {
           this.$emit("update:counter", this.counter + 1);
         }
       }
-    }
+    },
+    AsyncComp:defineAsyncComponent(()=>import('./NextPage.vue'))
   }
 };
 

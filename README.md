@@ -137,3 +137,55 @@ components: {
   }
 ```
 
+# 函数式组件
+
+ 1.函数式组件只能使用接收 `props` 和 `context` 的普通函数创建
+
+ 2.`functional` attribute 在单文件组件 (SFC) `<template>`已被移除
+
+ 3.`{ functional: true }` 选项在通过函数创建组件已被移除
+
+```js
+import { h } from 'vue'
+
+const DynamicHeading = (props, context) => {
+  return h(`h${props.level}`, context.attrs, context.slots)
+}
+
+DynamicHeading.props = ['level']
+
+export default DynamicHeading
+```
+
+# 异步组件要求使用 `defineAsyncComponent` 方法创建
+
+由于vue3中函数式组件必须定义为纯函数，异步组件定义时有如下变化
+
+1. 必须明确使用 `defineAsyncComponent` 定义
+2. `component` 选项重命名为 `loader`
+3. Loader 函数本身不再接收 `resolve` 和 `reject` 参数，且必须返回一个 Promise
+
+```js
+import { defineAsyncComponent } from 'vue'
+// 不带选项的异步组件
+const asyncPage = defineAsyncComponent(() => import('./NextPage.vue'))
+
+```
+
+带配置的异步组件，loader选项是以前的component
+
+```js
+import { defineAsyncComponent } from 'vue'
+import ErrorComponent from './components/ErrorComponent.vue'
+import LoadingComponent from './components/LoadingComponent.vue'
+
+// 带选项的异步组件
+const asyncPageWithOptions = defineAsyncComponent({
+  loader: () => import('./NextPage.vue'),
+  delay: 200,
+  timeout: 3000,
+  errorComponent: ErrorComponent,
+  loadingComponent: LoadingComponent
+})
+```
+
