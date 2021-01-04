@@ -92,3 +92,48 @@ app.component('comp', {
 })
 ```
 
+# 渲染函数API修改
+
+渲染函数变得更简单好用了，修改主要有以下几点：
+
+不再传入h函数，需要我们手动导入；拍平的props结构。scopedSlots删掉了，统一到slots
+
+```html
+<!-- render api的变化 -->
+  <RenderTest v-model:counter="counter">
+    <template v-slot:default>xxxxx</template>
+    <template v-slot:counter>counter.....</template>
+  </RenderTest>
+```
+
+
+
+```js
+mport {h} from 'vue'
+
+components: {
+    RenderTest: {
+      props: {
+        counter: {
+          type: Number,
+          default: 0,
+        }
+      },
+      render() {
+        return h("div", [
+          h("div", { onClick: this.onClick }, [
+            `i am RenderTest${this.counter}`,
+            this.$slots.counter(),
+            this.$slots.default(),
+          ])
+        ]);
+      },
+      methods: {
+        onClick() {
+          this.$emit("update:counter", this.counter + 1);
+        }
+      }
+    }
+  }
+```
+
