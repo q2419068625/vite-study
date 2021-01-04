@@ -15,6 +15,7 @@
     <template v-slot:default>xxxxx</template>
     <template v-slot:counter>counter.....</template>
   </RenderTest>
+  <Functional level="3">这是一个动态的H元素</Functional>
 </template>
 
 <script>
@@ -31,6 +32,7 @@ import {
 import ModelButton from "./ModelButton.vue";
 import VmodelTest from "./VmodelTest.vue";
 import Emits from "./Emits.vue";
+import Functional from "./Functional.vue";
 export default {
   name: "HelloWorld",
   props: {
@@ -66,6 +68,7 @@ export default {
     ModelButton,
     Emits,
     VmodelTest,
+    Functional,
     RenderTest: {
       props: {
         counter: {
