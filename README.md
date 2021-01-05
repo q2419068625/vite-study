@@ -215,7 +215,7 @@ app.directive('highlight', {
 <p v-highlight="yellow">Highlight this text bright yellow</p>
 ```
 
-# *$on*,$off and $once 移除
+# $on,$off and $once 移除
 
 上述3个方法被认为不应该由vue提供，因此被移除了，可以使用其他三方库实现。
 
