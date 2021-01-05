@@ -189,3 +189,29 @@ const asyncPageWithOptions = defineAsyncComponent({
 })
 ```
 
+# 自定义指令API和组件保持一致
+
+vue3中指令api和组件保持一致，具体表现在：
+
+- bind → **beforeMount**
+- inserted → **mounted**
+- **beforeUpdate**: new! 元素自身更新前调用, 和组件生命周期钩子很像
+- update → removed! 和updated基本相同，因此被移除之，使用updated代替。
+- componentUpdated → **updated**
+- **beforeUnmount** new! 和组件生命周期钩子相似, 元素将要被移除之前调用。
+- unbind  →  **unmounted**
+
+```js
+const app = Vue.createApp({})
+
+app.directive('highlight', {
+  beforeMount(el, binding, vnode) {
+    el.style.background = binding.value
+  }
+})
+```
+
+```html
+<p v-highlight="yellow">Highlight this text bright yellow</p>
+```
+

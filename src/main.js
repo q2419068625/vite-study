@@ -9,6 +9,11 @@ createApp(App)
            return h('div','i am comp')
         }
     })
+    .directive('highlight',{
+      beforeMount(el,binding,vnode){
+        el.style.background = binding.value
+      }
+    })
     .mount("#app");
 
 //自定义渲染器

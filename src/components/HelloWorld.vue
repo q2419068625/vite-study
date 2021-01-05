@@ -18,6 +18,8 @@
   <Functional level="3">这是一个动态的H元素</Functional>
   <!-- 异步组件 -->
   <AsyncComp></AsyncComp>
+  <!-- 自定义指令 -->
+  <p v-highlight="'green'">highlight this text!!</p>
 </template>
 
 <script>
