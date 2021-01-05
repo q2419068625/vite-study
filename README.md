@@ -215,3 +215,22 @@ app.directive('highlight', {
 <p v-highlight="yellow">Highlight this text bright yellow</p>
 ```
 
+# *$on*,$off and $once 移除
+
+上述3个方法被认为不应该由vue提供，因此被移除了，可以使用其他三方库实现。
+
+```html
+<script src="https://unpkg.com/mitt/dist/mitt.umd.js"></script>
+```
+
+```js
+// 创建emitter
+const emitter = mitt()
+
+// 发送事件
+emitter.emit('foo', 'foooooooo')
+
+// 监听事件
+emitter.on('foo', msg => console.log(msg))
+```
+
