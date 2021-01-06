@@ -5,15 +5,33 @@ import CanvasApp from './CanvasApp.vue'
 import EditTodo from './components/todos/EditTodo.vue'
 import Todos from './components/todos/Todos.vue'
 import Dashboard from './components/Dashboard.vue'
-import { createRouter, createWebHashHistory } from "vue-router";
+import NotFound from './components/NotFound.vue'
+import { createRouter, createWebHashHistory, createWebHistory } from "vue-router";
 
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory('/api'),
   routes: [
     {path: '/', name:'dashbord', component: Dashboard},
     {path: '/todos', name:'todos', component: Todos},
-  ]
+    {
+      path: "/:pathMatch(.*)*",name: "not-found",component:NotFound
+    }
+  ],
+  scrollBehavior(to, from, savedPosition) {
+    if(savedPosition){
+      return savedPosition
+    }else{
+      return {top: 0}
+    }
+  }
 })
+//使用命名导航至404页面
+// router.resolve({
+//   name:'not-found',
+//   params:{
+//     pathMatch: ['not', 'found']
+//   }
+// }).href  // /not%2Ffound
 
 //特性，动态路由
 router.addRoute({

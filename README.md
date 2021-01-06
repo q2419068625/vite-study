@@ -234,3 +234,28 @@ emitter.emit('foo', 'foooooooo')
 emitter.on('foo', msg => console.log(msg))
 ```
 
+# vue-Router 变化
+
+### history 选项替代了mode选项
+
+- history:   createWebHistory()
+- hash:  createWebHashHistory()
+- abstract: createMemoryHistory()
+
+### base 选项移至createWebHistory等方法中
+
+### 通配符*被移除
+
+### isReady() 替代 onReady()
+
+```js
+router.push()
+// before
+router.onReady(onSuccess, onError)
+// now
+router.isReady().then(onSuccess).catch(onError)
+```
+
+### scrollBehavior 变化
+
+x,y 变成 top, left
