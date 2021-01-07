@@ -313,3 +313,117 @@ x,y 变成 top, left
   
 
 - exact: 现在完全匹配逻辑简化了
+
+### mixins 中的路由守卫将被忽略
+
+### match 方法被移除，使用resolve替代
+
+### 移除router.getMatchedComponents()
+
+```js
+router.currentRoute.value.matched
+```
+
+### 包括首批导航在内所有路由均为异步
+
+```js
+app.use(router)
+router.isReady().then(() => app.mount('#app') )
+```
+
+> 如果首批存在路由守卫，则可以不等待就绪直接挂载，产生结果将和vue2相同
+
+### route的parent属性被移除
+
+```js
+const parent = this.$route.matched[this.$route.matched.length - 2]
+```
+
+
+
+### pathToRegexpOptions 选项被移除
+
+- pathToRegexpOptions  => strict
+- caseSensitive => sensitive
+
+```js
+createRouter({
+    strict: boolean,
+    sensitive: boolean
+})
+```
+
+
+
+### 使用 history.state
+
+```js
+// 之前
+history.pushState(myState, '', url)
+// 现在
+await router.push(url)
+history.replaceState({ ...history.state, ...myState }, '')
+
+```
+
+```js
+// 之前
+history.replaceState({}, '', url)
+// 现在
+history.replaceState(history.state, '', url)
+```
+
+
+
+### routes选项式必填项
+
+```
+createRouter({routes: []})
+```
+
+
+
+### 跳转不存在命名路由报错
+
+```
+router.push({name: 'dashboda'})
+```
+
+### 缺少必填参数会抛出异常
+
+	#### 命名子路由如果path为空的时候不再追加/
+
+```
+[
+	path: '/dashboard',
+	children: [
+		{path: '', component: DashboardDefault}
+	]
+]
+```
+
+以前生成 url: /dashboard/
+
+副作用： 给设置了重定向redirect选项的子路由带来副作用
+
+```
+[
+	path: '/dashboard',
+	children: [
+		{path: '', redirect: 'home' },
+		{path: 'home', component: Home}
+	]
+]
+```
+
+
+
+### $route属性编码行为
+
+params/query/hash
+
+	- Path/fullpath 不再做节码
+	- hash 会被解码
+	- push、resolve和replace，字符串参数，或者对象参数path属性必须编码
+	- params / 会被解码
+	- query中+不出来，stringifyQuery

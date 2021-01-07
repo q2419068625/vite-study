@@ -4,6 +4,7 @@ import "./index.css";
 import CanvasApp from './CanvasApp.vue'
 import EditTodo from './components/todos/EditTodo.vue'
 import Todos from './components/todos/Todos.vue'
+import NextPage from './components/NextPage.vue'
 import Dashboard from './components/Dashboard.vue'
 import NotFound from './components/NotFound.vue'
 import { createRouter, createWebHashHistory, createWebHistory } from "vue-router";
@@ -11,8 +12,13 @@ import { createRouter, createWebHashHistory, createWebHistory } from "vue-router
 const router = createRouter({
   history: createWebHistory('/api'),
   routes: [
-    {path: '/', name:'dashbord', component: Dashboard},
-    {path: '/todos', name:'todos', component: Todos},
+    {
+      path: '/', name:'dashbord', component: Dashboard,
+     
+    },
+    {
+      path: '/todos', name:'todos', component: Todos,
+    },
     {
       path: "/:pathMatch(.*)*",name: "not-found",component:NotFound
     }
