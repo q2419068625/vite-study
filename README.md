@@ -259,3 +259,57 @@ router.isReady().then(onSuccess).catch(onError)
 ### scrollBehavior 变化
 
 x,y 变成 top, left
+
+### 现在keep-alive  和 transition 必须用在router-view内部
+
+```html
+<!--before-->
+<keep-alive>
+    <router-view></router-view>
+</keep-alive>
+
+<!--now-->
+<router-view v-slot="{Component}">
+    <keep-alive>
+    	<component :is="Component"></component>
+    </keep-alive>
+</router-view>
+
+
+
+```
+
+### router-link移除了一票属性
+
+-  append
+
+  ```html
+  <router-link to="child-route" append>
+   
+  <router-link :to="append($route.path, 'child-route')">
+  ```
+
+  ```js
+  
+  app.config.globalProperties.append = (path, pathToAppend) => {
+      return path + pathToAppend
+  }
+  ```
+
+
+
+- tag/event
+
+  ```html
+  <!--before-->
+  <router-link to="/xx" tag="span" event="dblclick"></router-link>
+  
+  <!--now-->
+  <router-link to="/xx" custom v-slot="{navigate}">
+      <span @dblclick="navigate">xxx</span>
+  </router-link>
+  ```
+
+  
+
+- exact: 现在完全匹配逻辑简化了

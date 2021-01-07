@@ -17,13 +17,13 @@ const router = createRouter({
       path: "/:pathMatch(.*)*",name: "not-found",component:NotFound
     }
   ],
-  scrollBehavior(to, from, savedPosition) {
-    if(savedPosition){
-      return savedPosition
-    }else{
-      return {top: 0}
-    }
-  }
+  // scrollBehavior(to, from, savedPosition) {
+  //   if(savedPosition){
+  //     return savedPosition
+  //   }else{
+  //     return {top: 0}
+  //   }
+  // }
 })
 //使用命名导航至404页面
 // router.resolve({
